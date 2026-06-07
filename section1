@@ -1,1 +1,108 @@
+SECTION 1: SQL Basics (Concepts 1–10)
+Concepts
+1. What is SQL?
+2. What are databases?
+3. Difference between SQL and NoSQL
+4. What is a table?
+5. What is a row and column?
+6. What is a primary key?
+7. What is a foreign key?
+8. What is a constraint?
+9. What is NULL?
+10. What are SQL data types?
+
+1. What is SQL?
+SQL (Structured Query Language) is a language used to communicate with databases.
+It is used to create, retrieve, update, and delete data from relational databases such as MySQL, PostgreSQL, and SQL Server."
+example: insta stores user data
+
+2. What are databases?
+A database is an organized collection of structured or unstructured data, stored electronically in a computer system so it can be easily accessed, managed, modified, and updated
+A database is controlled by a software program known as a Database Management System (DBMS), which serves as the interface between the database and its end-users or program
+Real-Time Example
+Amazon → Product Database
+Bank → Customer Database
+College → Student Database
+
+3. Difference Between SQL and NoSQL
+"SQL databases store data in tables with predefined schemas, 
+whereas NoSQL databases store data in flexible formats like documents or key-value pairs."
+SQL	NoSQL
+
+Relational Database 	Non-relational Database
+  Tables	              Documents/Key-Value/graph
+  Fixed Schema	         Flexible Schema
+MySQL, PostgreSQL     	MongoDB, Cassandra
+
+4. What is a Table?
+A table is a collection of rows and columns used to store related data.
+
+5. What is a Row and Column?
+A row represents a single record, while a column represents a specific attribute of that record
+row - single recore | 1 | John | 50000 |
+column - single attribute
+| Emp_ID |
+| Name |
+| Salary |
+
+6. What is a Primary Key?
+"A primary key uniquely identifies each record in a table. It cannot contain duplicate or NULL values."
+
+CREATE TABLE employees(
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50)
+);               where id should be unique and not null 
+
+ral time example: aadhar car,pan card number
+
+7. What is foreign key?
+A foreign key is a column that references the primary key of another table to establish relationships between tables
+
+Departments
+Dept_ID	Dept_Name
+  1	       HR
+  2	       IT
+Employees
+Emp_ID	Name	Dept_ID
+ 101	  Ravi	   2
+Dept_ID in Employees is a Foreign Key.
+
+create table employees(
+   emp_id int primary key
+   dept_id int 
+   foreign key(dept_id)
+   references departments(dept_id)
+);
+
+8. What is a Constraint?
+Constraints are rules applied on columns to maintain data accuracy and integrity.
+primarykey.foreignkey, not null, unique, check, default
+ id cannot be null
+
+9. What is NULL?
+NULL represents missing or unknown data in a database field."
+imp->> NULL ≠ 0, NULL ≠ Empty String
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
