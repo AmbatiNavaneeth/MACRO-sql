@@ -1,0 +1,16 @@
+SECTION 2: DDL Commands (Concepts 11–20)
+Concepts
+11. What is DDL?
+12. CREATE statement
+13. ALTER statement
+14. DROP statement
+15. TRUNCATE statement
+16. Difference between DROP and TRUNCATE
+17. NOT NULL constraint
+18. UNIQUE constraint
+19. CHECK constraint
+20. DEFAULT constraint
+
+11. What is DDL?
+DDL stands for Data Definition Language. 
+It is used to create, modify, and delete database objects such as tables and databases
