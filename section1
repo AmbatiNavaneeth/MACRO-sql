@@ -83,8 +83,18 @@ primarykey.foreignkey, not null, unique, check, default
 NULL represents missing or unknown data in a database field."
 imp->> NULL ≠ 0, NULL ≠ Empty String
 
+10. What are SQL Data Types?
+Data types specify what kind of data can be stored in a column.
+int char varchar datetime
 
 
+Task 1: Employee Table Creation
+Objective: Create and understand a basic relational table.
+Requirements:
+● Create an employees table
+● Columns: emp_id, name, age, department, salary
+● emp_id must be primary key
+● salary cannot be NULL
 
 
 
