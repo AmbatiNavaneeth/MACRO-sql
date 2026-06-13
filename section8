@@ -1,0 +1,97 @@
+SECTION 8: Indexes & Performance (Concepts 71–80)
+Concepts
+71. What is an index?
+72. Types of indexes
+73. Clustered vs non-clustered index
+74. Composite index
+75. When not to use index
+76. Query execution plan
+77. Performance tuning basics
+78. SELECT * vs column selection
+79. Normalization
+80. Denormalization
+
+71. What is an index?
+An index is a database object that improves the speed of data retrieval operations. 
+It works like the index of a book, helping SQL find rows quickly without scanning the entire table.
+
+CREATE INDEX index_name
+ON table_name(column_name);
+
+In an employee table containing 1 million records, searching employees by salary is slow. Creating an index on the salary column allows SQL to locate matching records much faster.
+
+72. Types of indexes
+Indexes can be categorized based on how they store and organize data.
+
+Clustered Index  - determine physical storage order
+Non-Clustered Index - store references to data
+Composite Index - use multiple columns.
+Unique Index 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
