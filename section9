@@ -1,0 +1,147 @@
+SECTION 9: Transactions & ACID (Concepts 81–90)
+Concepts
+81. What is a transaction?
+82. ACID properties
+83. COMMIT
+84. ROLLBACK
+85. SAVEPOINT
+86. Auto-commit
+87. Isolation levels
+88. Dirty read
+89. Phantom read
+90. Deadlock
+
+
+81. What is a transaction?
+"A transaction is a collection of SQL operations treated as a single unit. Either all changes are saved or none are saved."
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 1000
+WHERE acc_id = 1;
+
+UPDATE accounts
+SET balance = balance + 1000
+WHERE acc_id = 2;
+COMMIT;
+
+Output
+Before:
+acc_id	balance
+1	      5000
+2	      3000
+
+After COMMIT:
+acc_id	balance
+ 1      4000
+ 2     	4000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
