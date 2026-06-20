@@ -29,6 +29,227 @@ Composite Index - use multiple columns.
 Unique Index 
 
 
+73. Clustered vs Non-Clustered Index
+Clustered Index
+A clustered index determines the physical order of data in a table.
+Example:-
+Records are physically stored according to EmployeeID.
+
+76. Query Execution Plan
+A query execution plan is a roadmap showing how the database executes a query
+Using EXPLAIN helps identify whether SQL is using an index or scanning the entire table.
+It displays:
+Table scans
+Index scans
+Index seeks
+Join methods
+Syntax
+
+EXPLAIN
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+77. Performance Tuning Basics
+Performance tuning is the process of improving query execution speed and resource utilization.
+Common Techniques:-
+Create indexes
+Avoid SELECT *
+Use WHERE clauses
+Optimize joins
+Normalize tables properly
+
+Real-Time Example
+Replacing:
+
+SELECT *
+FROM employees;
+
+with
+
+SELECT name,salary
+FROM employees;
+
+
+78. SELECT * vs Column Selection
+SELECT *
+FROM employees;
+
+SELECT name,salary
+FROM employees;
+
+Difference
+SELECT *	                  Column Selection
+Fetches all columns  	   Fetches required columns only
+More memory usage	          Less memory usage
+Slower                         	Faster
+
+
+79. Normalization
+Normalization is the process of organizing data to reduce redundancy and improve consistency
+Goals - Remove duplicate data, Improve integrity, Reduce storage waste
+
+80. Denormalization
+Denormalization is the process of intentionally adding redundant data to improve read performance.
+helps especially in reporting and analytics systems."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
