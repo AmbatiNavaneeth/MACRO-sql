@@ -36,45 +36,178 @@ acc_id	balance
  1      4000
  2     	4000
 
+82. ACID Properties
+ACID stands for Atomicity, Consistency, Isolation, and Durability. These properties ensure reliable transaction processing and maintain data integrit
+
+Atomicity - guarantees that all SQL statements inside a transaction must execute successfully, or none of them do
+Sending money on Venmo. The app must deduct money from you and add it to your friend. If the app crashes halfway through, it cancels the deduction so your money doesn't disappear into thin air.
+
+Consistency - A rule ensuring a transaction can only change data in ways that follow all database rules, types, and constraints. It prevents corrupt data from being saved
+Setting a Password length. If a database rule states passwords must be at least 8 characters, the system will reject and block any attempt to save a 5-character password.
+
+Isolation - A rule ensuring that multiple transactions running at the exact same time do not bleed into or mess with each other. Each runs as if it is the only one.
+Buying the last PS5 on Amazon. If two people click "Buy" at the exact same second, the system locks the item for the first person. 
+The second person is forced to wait, preventing the system from selling one physical item to two people
+
+Durability - A guarantee that once a transaction is successfully completed and saved, the data is permanently written to disk. It will not be lost, even if the server explodes or loses power a millisecond later.
+Posting a video on YouTube. Once you see the "Upload Complete" message, the video is safely saved on Google’s hard drives. 
+If the YouTube data center loses power immediately after, your video is still there when the servers turn back on.
 
 
 
+83. COMMIT
+A COMMIT in SQL is the command that permanently saves all data changes made during the current transaction to the database
+START TRANSACTION;
+
+UPDATE employees
+SET salary = 70000
+WHERE emp_id = 1;
+COMMIT;
+
+Before:
+emp_id	salary
+   1	  50000
+
+After:
+emp_id	salary
+   1	   70000
 
 
+84. ROLLBACk
+A COMMIT in SQL is the command that Erases all changes made since the transaction started.
+
+START TRANSACTION;
+
+UPDATE employees
+SET salary = 70000
+WHERE emp_id = 1;
+ROLLBACK;
+
+Before:
+emp_id	salary
+   1	  50000
+
+After:
+emp_id	salary
+   1	   50000
 
 
+85. SAVEPOINT
+SAVEPOINT creates a temporary checkpoint that allows partial rollback within a transaction
+START TRANSACTION;
+
+UPDATE employees
+SET salary = 60000
+WHERE emp_id = 1;
+
+SAVEPOINT sp1;
+
+UPDATE employees
+SET salary = 80000
+WHERE emp_id = 2;
+
+ROLLBACK TO sp1;
+
+COMMIT;
+
+Output
+
+Before:
+emp_id	 salary
+  1	    50000
+  2	    55000
+
+After:
+emp_id	 salary
+ 1	     60000
+ 2	     55000
 
 
+86. Auto-Commit
+Auto-commit mode automatically saves every SQL statement without requiring COMMIT
+UPDATE employees
+SET salary = 60000
+WHERE emp_id = 1;
+Output:-
+1 Row Updated
+Automatically Committed
+
+87. Isolation Levels
+SQL isolation levels control how concurrent transactions interact with each other and what data visibility they have
+
+88. Dirty Read
+A dirty read occurs when a transaction reads data that another transaction has modified but not yet committed.
+
+Transaction A:
+UPDATE accounts
+SET balance = 1000
+WHERE acc_id = 1;  (Not committed)
+
+Transaction B:
+SELECT balance
+FROM accounts
+WHERE acc_id = 1;
+
+Output
+Balance = 1000 (Uncommitted Value) - B reads 1000 even though A may rollback.
 
 
+89. Phantom Read
+A transaction executes the same query twice and gets different rows.
+
+Transaction A:
+SELECT *
+FROM employees
+WHERE department='IT';
+
+Returns:
+emp_id
+1
+2
+
+Transaction B:
+INSERT INTO employees
+VALUES(3,'John','IT',50000);
+COMMIT;
+
+Transaction A runs again:
+
+SELECT *
+FROM employees
+WHERE department='IT';
+Output
+
+First Query:
+emp_id
+1
+2
+
+Second Query:
+emp_id
+1
+2
+3
 
 
+90. Deadlock
+A deadlock occurs when two or more transactions block each other by holding resources that the others need
+A deadlock in SQL occurs when two or more concurrent database transactions permanently block each other because each holds a lock on a resource that the other transaction needs to proceed.
 
+Example
+Transaction A:
+UPDATE accounts
+SET balance=4000
+WHERE acc_id=1;
 
+Transaction B:
+UPDATE accounts
+SET balance=5000
+WHERE acc_id=2;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Then:
+A waits for row 2.
+B waits for row 1.
+Neither can proceed
 
 
 
