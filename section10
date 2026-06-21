@@ -1,0 +1,294 @@
+SECTION 10: Views, Procedures & Functions (Concepts
+91–100)
+Concepts
+91. What is a view?
+92. Creating views
+93. Updating views
+94. Stored procedures
+95. Stored functions
+96. Parameters in procedures
+97. Triggers
+98. BEFORE vs AFTER trigger
+99. Use cases of triggers
+100. View vs table
+
+91. What is a view?
+A View is a virtual table created by a saved SQL query. It does not store data itself; it shows data from one or more tables
+syntax
+CREATE VIEW view_name AS
+SELECT column1,column2
+FROM table_name;
+
+exmple:-
+CREATE VIEW emp_view AS
+SELECT emp_id,name,department
+FROM employees;
+Output
+View Created Successfully
+
+Using View:
+SELECT * FROM emp_view;
+
+Output:
+emp_id	name	department
+  1 	  Ravi	  IT
+  2	    John	  HR
+
+92. Creating Views
+
+93. Updating views
+Simple views can be updated, but complex views containing joins or aggregates usually cannot
+If a view is based on a single table, data can often be updated through the view.
+
+Simple Views:- Created from a single base table without any aggregation functions. They generally permit direct data modification (INSERT, UPDATE, DELETE) through the view.
+Complex Views:- Built from multiple tables using JOIN conditions, subqueries, or groupings (GROUP BY). They typically do not support direct data modifications due to their structural complexity.
+
+UPDATE emp_view
+SET department='Finance'
+WHERE emp_id=1;
+
+Output
+Before:
+emp_id	department
+1	IT
+
+After:
+emp_id	department
+1	Finance
+
+94. Stored procedures
+A stored procedure is a collection of SQL statements stored in the database and executed when called.
+Why Do We Use Procedures?
+Reuse code
+Reduce repetition
+Improve performance
+
+DELIMITER //
+CREATE PROCEDURE procedure_name()
+BEGIN
+   SQL statements;
+END //
+DELIMITER ;
+
+Example:
+DELIMITER //
+CREATE PROCEDURE show_students()
+BEGIN
+   SELECT * FROM student;
+END //
+DELIMITER ;
+
+CALL show_students(); - #Call the Procedure
+
+
+Types of Parameters
+IN → Input value
+OUT → Output value
+IN OUT → Both input and output
+
+Procedure with IN Parameter
+IN parameter means input value is passed to the procedure.
+
+EXAMPLE:
+DELIMITER //
+CREATE PROCEDURE get_student_by_id(IN sid INT)
+BEGIN
+   SELECT * FROM student WHERE id = sid;
+END //
+DELIMITER ;
+
+Call:- CALL get_student_by_id(1);
+
+Procedure with OUT Parameter
+
+OUT parameter is used to return a value from the procedure.
+It sends data from the procedure to user.
+
+EXAMPLE:
+
+DELIMITER //
+CREATE PROCEDURE student_count(OUT total INT)
+BEGIN
+    SELECT COUNT(*) INTO total
+    FROM students;
+END //
+
+DELIMITER ;
+
+CALL student_count(@result);
+SELECT @result;
+
+Procedure with INOUT Parameter
+
+INOUT parameter works as both input and output.
+Value is sent to procedure
+Procedure modifies the value
+Modified value is returned back
+
+DELIMITER //
+CREATE PROCEDURE add_marks(INOUT extra INT)
+BEGIN
+    UPDATE students
+    SET marks = marks + extra;
+END //
+DELIMITER ;
+
+SET @bonus = 5;      - Creating a variable:
+CALL add_marks(@bonus); - Call procedure 
+
+
+DROP PROCEDURE procedure_name;
+Drop  procedure if exists procedure_name;
+
+
+95. Stored Function
+A function returns a single value after performing calculations.
+
+96. Parameter in stored procedures
+
+97. Triggers
+A Trigger is a special type of stored procedure that automatically executes (fires) when a specific event occurs on a table or view.
+Triggers are mainly used to maintain data integrity, and track changes in tables.
+
+Triggers are executed automatically when one of the following events occurs:
+INSERT – When a new row is added.
+UPDATE – When an existing row is modified.
+DELETE – When a row is removed.
+
+Syntax:
+CREATE TRIGGER trigger_name
+BEFORE | AFTER
+INSERT | UPDATE | DELETE
+ON table_name
+FOR EACH ROW
+BEGIN
+   SQL statements;
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
