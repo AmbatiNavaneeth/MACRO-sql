@@ -166,8 +166,33 @@ BEGIN
 END;
 
 
+AFTER triggers run after successful completion
 
+BEFORE triggers run before an operation  used  to validate/modify data before storing it.
+Company rule: Salary cannot be negative.
 
+CREATE TRIGGER check_salary
+BEFORE INSERT
+ON employees
+FOR EACH ROW
+SET NEW.salary = ABS(NEW.salary);
+
+User Inserts
+
+INSERT INTO employees
+VALUES(1,'Ravi',-50000);
+What Happens?
+
+Before data enters the table:
+NEW.salary = ABS(-50000)
+
+becomes
+50000
+
+Output
+employees table
+emp_id	name	  salary
+  1	    Ravi   	50000
 
 
 
