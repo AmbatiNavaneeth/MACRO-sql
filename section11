@@ -1,0 +1,216 @@
+SECTION 11: Database Design & Security
+101. Database normalization forms
+102. 1NF, 2NF, 3NF
+103. Star vs snowflake schema
+104. OLTP vs OLAP
+105. Data integrity
+106. Referential integrity
+107. Cascading actions
+108. SQL injection
+109. Preventing SQL injection
+110. User roles & privileges
+111. GRANT
+112. REVOKE
+113. Backup and restore
+114. Database migration
+115. Data consistency
+116. Locking
+117. Read vs write locks
+118. Partitioning
+119. Sharding (conceptual)
+
+
+101. Database Normalization Forms
+Normalization is the process of organizing data to reduce redundancy and improve data integrity.
+           1. Reduce Data Redundancy
+           2. Improve Data Consistency
+           3. Save Storage Space
+           4. Improve Database Structure
+
+
+Bad Table:
+EmpID	  Name  	DeptName
+1	      Ravi	    IT
+2	      John      IT
+
+"IT" is repeated.
+
+Output After Normalization
+
+Employees
+EmpID	  Name	DeptID
+ 1	    Ravi	  1
+ 2	    John	  1
+
+Departments
+DeptID	DeptName
+  1	       IT
+
+
+
+102. 1NF, 2NF, 3NF - 1NF removes repeating groups, 2NF removes partial dependency, and 3NF removes transitive dependency."
+
+1NF - No repeating groups or multiple values in a column.
+Bad Table                   
+ID	Name	Phones
+1	  Ravi	111,222
+
+Good Table
+ID	Name	Phone
+1	  Ravi	111
+1	  Ravi	222
+
+2NF - Must be in 1NF and remove partial dependency.
+Information should depend only on the main identifier of the row.
+
+3NF - Must be in 2NF and remove transitive dependency
+
+
+103. Star Schema vs Snowflake Schema - Star schema is simpler and faster, while snowflake schema is more normalized
+
+-> A central fact table is directly connected to multiple, single-level dimension tables.
+       Product
+          |
+Customer--Sales--Time
+          |
+       Store
+Pros: Fewer JOINs, faster query performance, and highly intuitive for users to understand.
+Cons: Higher data redundancy; difficult to update since a single change might affect many rows
+use cases:
+Business Intelligence (BI): Ideal for feeding data directly into dashboarding tools like Tableau or Power BI 
+Real-time Analytics: perfect for read heavy operations
+
+-> Dimension tables further normalized.
+Product
+   |
+Category
+   |
+Sales
+
+Pros: Saves disk space and ensures high data integrity with minimal redundancy.
+Cons: Slower query performance due to multiple JOINs and highly complex SQL querying
+
+Complex Data Hierarchies
+Large Enterprise Warehouses: Best for massive datasets where storage costs are significant and data redundancy must be minimized
+
+104. OLTP vs OLAP
+OLTP (Online Transaction Processing) manages daily, real-time operational transactions (like bank withdrawals or e-commerce purchases). - ATM transactions, daily payments
+OLAP (Online Analytical Processing) analyzes historical data to uncover business trends and insights. - yearly profits , turnover
+
+105. Data Integrity
+Data integrity is about ensuring the accuracy, consistency, and reliability of data throughout its lifecycle. In database management.
+- enitity integrity - Ensures that each row in a table represents a unique entity. using primary key and unique
+- referential integrity - Maintains logical and consistent relationships between different tables. It is established using FOREIGN KEY constraints
+- Domain Integrity - Guarantees that all values in a specific column fall within a valid, defined range or data type. It is enforced using NOT NULL, DEFAULT, and CHECK constraints (e.g., ensuring a user's age is greater than 18
+- User-Defined Integrity - Custom rules or business logic that are not covered by standard database constraints. These are typically implemented using Triggers or Stored Procedure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
