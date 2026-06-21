@@ -104,15 +104,34 @@ Data integrity is about ensuring the accuracy, consistency, and reliability of d
 - Domain Integrity - Guarantees that all values in a specific column fall within a valid, defined range or data type. It is enforced using NOT NULL, DEFAULT, and CHECK constraints (e.g., ensuring a user's age is greater than 18
 - User-Defined Integrity - Custom rules or business logic that are not covered by standard database constraints. These are typically implemented using Triggers or Stored Procedure
 
+106. Referential Integrity
+Ensures foreign key values always reference valid rows.
 
 
+107. Cascading Actions
+Cascading actions automatically propagate updates or deletes to child tables if there any changes for parent table 
+When you connect two tables (like a Parent table and a Child table), cascading tells the database what to do to the child when the parent changes.
 
+1. CASCADE (The Copycat)
+)Whatever happens to the parent happens to the child.
+Delete Parent: The child gets deleted too - Update Parent: The child updates to match.
+example:- If you delete a User Account, their Profile Pictures are automatically deleted too.
 
+2. SET NULL (The Disconnect)
+The child stays, but loses the connection to the parent. 
+Delete Parent: The child's link turns blank (NULL).
+Example: If a Manager leaves the company, the Employees keep their jobs, but their "Manager" box is left blank.
 
+3. RESTRICT / NO ACTION (The Blockade)
+The database stops you from making changes.
+Delete Parent: The database says "No!" and blocks the delete.
+Example: You cannot delete a Product if a customer has already Ordered it. You must delete the order first.
 
+108. SQL Injection
+SQL injection is an attack where malicious SQL code manipulates database queries
+ Attackers use this flaw to bypass authentication, access, modify, or delete sensitive data
 
-
-
+SELECT * FROM Users WHERE Username = 'user_input' AND Password = 'password_input'If an attacker enters ' OR 1=1 -- into the username field, the resulting query executed by the database becomes:SELECT * FROM Users WHERE Username = '' OR 1=1 --' AND Password = 'password_input'Why this succeeds:' closes the username string.OR 1=1 forces the condition to always evaluate to true.-- (or # in some SQL dialects) comments out the rest of the query, ignoring the password check.The database authenticates the attacker as the first user in the table, often the administrator.
 
 
 
