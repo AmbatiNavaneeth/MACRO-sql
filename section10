@@ -195,14 +195,104 @@ emp_id	name	  salary
   1	    Ravi   	50000
 
 
+AFTER Trigger Example
+
+Company wants to keep track of salary changes.
+Tables:
+
+employees
+emp_id	salary
+1      	50000
+
+salary_log
+old_salary	new_salary
+
+CREATE TRIGGER log_salary
+AFTER UPDATE
+ON employees
+FOR EACH ROW
+INSERT INTO salary_log
+VALUES(OLD.salary, NEW.salary);
+
+User Updates Salary
+
+UPDATE employees
+SET salary = 70000
+WHERE emp_id = 1;
+
+What Happens?
+Salary changes in employees table
+AFTER trigger runs
+Change is recorded in salary_log
+
+Output
+
+employees
+emp_id	salary
+  1	    70000
+
+salary_log
+old_salary	new_salary
+50000	         70000
 
 
+99. Use Cases of Triggers
+Audit logs
+Data validation
+Automatic calculations
+Security monitoring
 
+100. View vs Table  -  A table physically stores data, whereas a view is a virtual representation of data from one or more tables."
+View	Table
+Virtual	Physical
+Stores query only	Stores data
+Less storage	Uses storage
+Can simplify access	Holds actual records  
 
+Task 10: Automation Using SQL Objects
+Objective: Automate database logic.
+Requirements:
+● Create a view for high-salary employees
+● Create a trigger to log salary changes
 
+Step 1: 
+Create High Salary View
 
+CREATE VIEW high_salary AS
+SELECT *
+FROM employees
+WHERE salary > 50000;
+Output
+View Created Successfully
+Step 2: Create Log Table
+CREATE TABLE salary_log(
+    old_salary INT,
+    new_salary INT
+);
 
+Output
+Table Created Successfully
 
+Step 3: Create Trigger
+CREATE TRIGGER log_salary_change
+AFTER UPDATE
+ON employees
+FOR EACH ROW
+INSERT INTO salary_log
+VALUES(OLD.salary,NEW.salary);
+
+Output
+Trigger Created Successfully
+
+Step 4: Test Trigger
+UPDATE employees
+SET salary=70000
+WHERE emp_id=1;
+
+Output
+salary_log table:
+old_salary	new_salary
+  50000	      70000
 
 
 
