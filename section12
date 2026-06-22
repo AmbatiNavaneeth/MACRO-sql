@@ -1,0 +1,443 @@
+SECTION 12: Advanced SQL & Real-World Scenarios
+121. Window functions
+122. ROW_NUMBER()
+123. RANK() and DENSE_RANK()
+124. PARTITION BY
+125. LEAD and LAG
+126. Running totals
+127. Pivot and unpivot
+128. Date & time functions
+129. String functions
+130. JSON support in SQL
+131. Recursive queries
+132. Hierarchical data
+133. Pagination
+134. SQL for analytics
+135. Query refactoring
+136. Database monitoring
+137. Explain analyze
+138. Handling large datasets
+139. SQL in microservices
+140. SQL vs ORM
+141. MySQL vs PostgreSQL
+142. ACID vs BASE
+143. CAP theorem
+144. Data warehousing concepts
+145. Slowly changing dimensions
+146. Fact vs dimension tables
+147. Query anti-patterns
+148. Materialized views
+149. SQL best practices
+150. Real-world SQL interview scenarios
+
+
+121. Window Functions - Window functions perform calculations across related rows without grouping them into a single result."
+A window function is a special tool in SQL that calculates a value across a group of related table rows, without collapsing or hiding the individual rows
+
+Imagine you have a spreadsheet of Store Sales:
+Category      Product      Price
+Electronics   Laptop      ₹50,000
+Electronics   Phone       ₹30,000
+Clothes       Shirt       ₹2,000
+The Problem with Normal SQL (GROUP BY)If you ask SQL for the total sales using a normal GROUP BY, it smashes your rows together. 
+You lose the individual products:
+Category            Total 
+SalesElectronics  ₹80,000
+Clothes           ₹2,000
+(The Laptop, Phone, and Shirt rows are gone!)
+
+The Solution: Window Functions (OVER)A window function gives you the best of both worlds. 
+It calculates the total but keeps your original rows perfectly intact.It adds a new column right next to your data:
+Category     Product    Price     Category Total (Window Function)
+Electronics  Laptop    ₹50,000       ₹80,000
+Electronics  Phone     ₹30,000       ₹80,000
+Clothes      Shirt     ₹2,000        ₹2,000
+
+Find each employee's salary and compare it with department salaries.
+Sample Table
+emp_id	name	salary
+1	Ravi	50000
+2	John	70000
+3	Alice	60000
+Program
+
+SELECT name,
+       salary,
+       AVG(salary) OVER() as avg_salary
+FROM employees;
+
+Output
+name	salary	avg_salary
+Ravi	50000	60000
+John	70000	60000
+Alice	60000	60000
+
+
+122. ROW_NUMBER()
+Assigns a unique sequential number to each row.
+SYNTAX:
+>>>SELECT *, ROW_NUMBER() OVER (ORDER BY column_name)  FROM table_name;
+EX:
+Real-Time Example
+Ranking employees by salary.
+
+name	salary
+John	70000
+Alice	60000
+Ravi	50000
+
+SELECT name,
+       salary,
+       ROW_NUMBER()
+       OVER(ORDER BY salary DESC) AS row_num
+FROM employees;
+
+Output
+name	salary	row_num
+John	70000	    1
+Alice	60000	    2 
+Ravi	50000	    3
+
+
+123. RANK() and DENSE_RANK()
+>>>RANK() - Used for ranking rows.
+Assigns a rank to each row within a partition of a result set. If there are ties (rows with the same value)i.e get marks, they get the same rank, and the next rank(s) are skipped.
+>>>SELECT *, RANK() OVER (ORDER BY column_name)  FROM table_name;
+
+name	salary
+John	70000
+Alice	60000
+Sam	  60000
+Ravi	50000
+
+SELECT name,
+       salary,
+       RANK()
+       OVER(ORDER BY salary DESC) AS rank_no
+FROM employees;
+
+Output
+name	 salary	 rank_no
+John	 70000	   1
+Alice	 60000	   2
+Sam	   60000	   2
+Ravi	 50000	   4
+
+Notice Rank 3 is skipped
+
+
+>>>DENSE_RANK()
+Similar to RANK(), but no ranks are skipped when there are ties. i.e get equal marks
+SYNTAX:
+>>>SELECT *,DENSE_RANK() OVER (ORDER BY column_name)  FROM table_name;
+
+name	salary
+John	70000
+Alice	60000
+Sam	  60000
+Ravi	50000
+
+SELECT name,
+       salary,
+       DENSE_RANK()
+       OVER(ORDER BY salary DESC) AS rank_no
+FROM employees;
+
+Output
+name	 salary	 rank_no
+John	 70000	   1
+Alice	 60000	   2
+Sam	   60000	   2
+Ravi	 50000	   3
+
+
+124. PARTITION BY
+Divides data(rows) into groups before applying a window function
+
+Rank employees within each department.
+
+name	  dept	salary
+Ravi	  IT	50000
+John	  IT	70000
+Alice	  HR	60000
+Sam	    HR	55000
+
+SELECT name,
+       dept,
+       salary,
+       RANK()
+       OVER(
+          PARTITION BY dept
+          ORDER BY salary DESC
+       ) AS dept_rank
+FROM employees;
+
+Output
+name	dept	salary	dept_rank
+John	 IT  	70000	     1
+Ravi	 IT	  50000	     2
+Alice	 HR	  60000	     1
+Sam	   HR	  55000	     2
+
+125. LEAD() and LAG()
+LEAD() and LAG() are powerful SQL window functions that allow you to accessnext row's value(LEAD) or previous row's value (LAG) rows without requiring complex self-joins.
+They are primarily used for calculating 
+                                      period-over-period changes, 
+                                      comparing trends, 
+                                      finding time differences between events.
+Real-Time Example
+Comparing today's sales with yesterday's sales.
+
+LEAD() - Returns the next row value.
+
+SELECT name,
+       salary,
+       LEAD(salary)
+       OVER(ORDER BY salary)
+       AS next_salary
+FROM employees;
+
+Output
+name	salary	next_salary
+Ravi	50000  	60000
+Alice	60000	  70000
+John	70000 	NULL
+
+LAG() - Returns previous row value.
+
+SELECT name,
+       salary,
+       LAG(salary)
+       OVER(ORDER BY salary)
+       AS previous_salary
+FROM employees;
+
+Output
+name	salary	previous_salary
+Ravi	50000	      NULL
+Alice	60000	     50000
+John	70000    	 60000
+
+
+126. Running Totals
+A running total is a cumulative sum that keeps adding values row by row using SUM() OVER() and ORDER BY
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
