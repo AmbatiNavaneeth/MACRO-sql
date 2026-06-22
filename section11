@@ -131,43 +131,112 @@ Example: You cannot delete a Product if a customer has already Ordered it. You m
 SQL injection is an attack where malicious SQL code manipulates database queries
  Attackers use this flaw to bypass authentication, access, modify, or delete sensitive data
 
-SELECT * FROM Users WHERE Username = 'user_input' AND Password = 'password_input'If an attacker enters ' OR 1=1 -- into the username field, the resulting query executed by the database becomes:SELECT * FROM Users WHERE Username = '' OR 1=1 --' AND Password = 'password_input'Why this succeeds:' closes the username string.OR 1=1 forces the condition to always evaluate to true.-- (or # in some SQL dialects) comments out the rest of the query, ignoring the password check.The database authenticates the attacker as the first user in the table, often the administrator.
+SELECT * FROM Users WHERE Username = 'user_input' AND Password = 'password_input'
+If an attacker enters ' OR 1=1 -- into the username field, the resulting query executed by the database becomes:SELECT * FROM Users WHERE Username = '' OR 1=1 --' AND Password = 'password_input'
+Why this succeeds:
+'       closes the username string.
+OR 1=1  forces the condition to always evaluate to true.
+--      (or # in some SQL dialects) comments out the rest of the query, ignoring the password check.
+The database authenticates the attacker as the first user in the table, often the administrator.
 
 
+109. Preventing SQL Injection
+Methods
+Prepared Statements
+Parameterized Queries - A parameterized query (also known as a prepared statement) is a database query template that uses placeholders instead of embedding user inputs directly into the SQL code.
+Input Validation
+
+query = "SELECT * FROM users WHERE username = ?"
+cursor.execute(query, (user_input,)) 
+
+110. User Roles & Privileges
+Roles and privileges restrict database access according to user responsibilities.
+Control what users can do in a database.
+
+To Check the users:    select * from MySQL.user;
+To create a new users: create user_name@localhost identified by "password";
+To rename usernames:   RENAME USER  old_user@localhost  TO  new_user@localhost;
 
 
+111. GRANT
+GRANT is used to provide previleegs (permissions) to users.
+Giving all permissions to users for all databases and tables                              - grant all privileges on *.* to user_name@localhost;
+Giving only select and update permissions to users for all databases and tables           -  grant select,update  on *.* to user_name@localhost;
+Giving only select and update permissions to users for only particular database and table - grant select,update  on database_name.table_name to user_name@localhost;
+
+112. REVOKE
+REVOKE – Removes access privileges(permissions)  from users 
+removing all permissions from users for all databases and tables                  - revoke all privileges on *.* from user_name@localhost;
+Removing only drop and select permissions from users for all databases and tables - Revoke drop,select on *.* from user_name@localhost;
+Removing all permissions from users for only selected database and tables         - Revoke all privileges on database_name.table_name from user_name@localhost;
+
+113. Backup and Restore
+Backup saves database copies. Restore recovers them.
+A copy of data that you can use to restore and recover the data after a failure.
+
+BACKUP DATABASE YourDatabaseName
+TO DISK = 'C:\Backups\YourDatabaseName.bak'
+WITH FORMAT, MEDIANAME = 'SQLServerBackups', NAME = 'Full Backup of YourDatabaseName';
 
 
+RESTORE DATABASE YourDatabaseName
+FROM DISK = 'C:\Backups\YourDatabaseName.bak'
+WITH REPLACE;
 
 
+114. Database Migration
+Database migration generally refers to either Schema Migration - modifying table structures incrementally 
+                                                Data Migration - transferring data from one database system to another
 
 
+Example
+MySQL → PostgreSQL
 
 
+115. Data Consistency
+Data consistency in SQL ensures that a database transitions only from one valid state to another, strictly obeying all predefined rules, data types, constraints, and triggers
+
+Core Pillars of SQL Consistency
+- ACID Transaction Properties 
+- Database Constraints
 
 
+116. Locking
+Locks prevent multiple users from modifying the same data simultaneously.
+Common Locking Challenges
+1. Blocking
+Blocking occurs naturally when one transaction holds a lock on a resource and a second transaction requests an incompatible lock on the same resource. 
+The second transaction is forced to wait until the first commits or rolls back. Severe blocking can degrade application performance.
+2. Deadlock
+A deadlock happens when two transactions are blocked because each holds a lock that the other needs to proceed.
+Example: Transaction A locks Row 1 and requests Row 2. Simultaneously, Transaction B locks Row 2 and requests Row 1.
+
+117. Read vs Write Locks
+Read locks allow multiple users to look at data at the same time
+write locks  allow to a single user to modify data.
+
+118. Partitioning
+Partitioning divides large tables into manageable pieces that are called partitions - Splits data on a single server
+Example
+Sales table:
+2024 Data
+2025 Data
+2026 Data
+Stored separately.
+Output
+Faster Query Performance
+
+1. Horizontal Partitioning -  A massive Orders table is split into 12 partitions by month
+2. Vertical Partitioning - Splitting a Users table into two: one partition holds frequently accessed text columns (Username, Password), while the second holds rarely accessed binary data (Profile_Picture_BLOB
 
 
+119. Sharding
+Sharding is a database architecture pattern that cuts a single database into smaller, faster, and more manageable pieces called shards.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+120. Multi-Tenant Databases
+Multi-tenancy allows multiple customers to share the same database infrastructure securely. - Splits data on across multiple independent server
+A SaaS company stores data for multiple clients in one database.
 
 
 
