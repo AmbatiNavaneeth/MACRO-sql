@@ -221,15 +221,61 @@ John	70000    	 60000
 
 126. Running Totals
 A running total is a cumulative sum that keeps adding values row by row using SUM() OVER() and ORDER BY
+Sample Table
+day	sales
+1	1000
+2	2000
+3	1500
+
+SELECT day,
+       sales,
+       SUM(sales) OVER(
+       ORDER BY day
+       ) AS running_total
+FROM sales;
+
+Output
+day	sales	running_total
+1	1000	1000
+2	2000	3000
+3	1500	4500
+
+127. Pivot and Unpivot
+Pivot:-
+Pivot converts row values into columns for easier reporting (making a table wider)
+Real-Time Example
+Monthly sales dashboard.
+
+month	sales
+Jan	1000
+Feb	2000
+Mar	3000
+
+Output After Pivot
+
+Jan	Feb	Mar
+1000	2000	3000
+
+Unpivot:-
+Unpivot converts columns into rows
+Jan	Feb	Mar
+1000	2000	3000
+
+Output
+Month	Sales
+Jan	1000
+Feb	2000
+Mar	3000
 
 
-
-
-
-
-
-
-
+128. Date & Time Functions
+A functions which are used to work with dates and times
+Date functions are used to:
+Retrieve current date/time
+Extract parts of a date
+Format date values
+Perform date calculations
+Find difference between dates
 
 
 
