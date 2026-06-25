@@ -1,0 +1,223 @@
+SECTION 4: Filtering & Operators (Concepts 31–40)
+Concepts
+31. Comparison operators
+32. Logical operators
+33. BETWEEN
+34. IN
+35. LIKE
+36. Wildcards
+37. IS NULL / IS NOT NULL
+38. AND vs OR
+39. Aliases
+40. CASE statement
+
+
+31. Comparison operators
+Comparison operators are used to compare values in SQL conditions
+=	  Equal
+>	  Greater than
+<	  Less than
+>=	Greater than or equal
+<=	Less than or equal
+!= or <>	Not equal
+
+
+32. Logical operators
+Logical operators combine multiple conditions in a WHERE clause
+ex:-
+Find IT employees earning above ₹50,000.
+
+SELECT *
+FROM employees
+WHERE department='IT'
+AND salary>50000;
+
+SELECT *
+FROM employees
+WHERE department='IT'
+OR department='HR';
+
+
+33. BETWEEN
+ETWEEN is used to filter values within a specified range, including both boundary values
+SELECT *
+FROM employees
+WHERE salary BETWEEN 30000 AND 60000;  #equivalent to 30000>= and <=60000
+
+ex:- Find employees whose salary is between ₹30,000 and ₹60,000.
+
+34. IN
+The SQL IN operator is a shorthand for multiple OR conditions. 
+It allows you to specify multiple values in a WHERE clause to filter your query results quickly.
+
+SELECT *
+FROM employees
+WHERE department IN ('IT','HR','Sales');
+
+Equivalent To
+WHERE department='IT'
+OR department='HR'
+OR department='Sales';
+
+
+35. LIKE
+LIKE is used for pattern matching and searching text values
+
+SELECT column_name(s)
+FROM table_name
+WHERE column_name LIKE pattern;
+
+LIKE 'A%'  - Finds values that start with a specific lette
+LIKE '%A'  - Finds values that end with a specific lette
+LIKE %or%' - Finds values that have a specific string in any position
+LIKE '_r%' - Finds values with a specific character at a precise position
+LIKE 'a%o  - Finds values that start and end with specific characters
+NOT LIKE 'A%' - Using NOT LIKE to exclude patterns
+
+
+36. Wildcards
+Wildcards are special symbols used with LIKE for flexible text searching. 
+'%' matches multiple characters and '_' matches a single character.
+
+SELECT *
+FROM employees
+WHERE name LIKE '_a%';
+
+Matches:
+Ravi
+Karan
+
+Second letter must be 'a'.
+
+
+37. IS NULL / IS NOT NULL
+IS NULL and IS NOT NULL are used to check whether a column contains missing values
+
+NULL VALUES
+SELECT *
+FROM employees
+WHERE department IS NULL;
+
+NOT NULL Values
+SELECT *
+FROM employees
+WHERE department IS NOT NULL;
+
+
+38. AND vs OR
+AND requires all conditions to be true
+OR requires at least one condition to be true
+
+AND-All conditions must be true.
+
+SELECT *
+FROM employees
+WHERE department='IT'
+AND salary>50000;
+
+Example
+Dept	Salary
+IT	  60000
+
+OR-At least one condition must be true.
+
+SELECT *
+FROM employees
+WHERE department='IT'
+OR salary>50000;
+
+Example
+Dept	Salary
+IT	  30000
+HR	  60000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
