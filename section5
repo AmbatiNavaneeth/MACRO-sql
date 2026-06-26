@@ -1,3 +1,17 @@
+SECTION 5: Aggregate Functions & Grouping
+
+41. COUNT()
+42. SUM()
+43. AVG()
+44. MIN()
+45. MAX()
+46. GROUP BY
+47. HAVING
+48. Difference between WHERE and HAVING
+49. Aggregate vs scalar functions
+50. ROLLUP / CUBE (conceptual)
+
+
 
 
 
