@@ -131,13 +131,51 @@ Dept	Salary
 IT	  30000
 HR	  60000
 
+39. Aliases
+Aliases provide temporary names to columns or tables, making queries shorter and more readable
+
+Column Alias
+-------------------------
+SELECT name AS Employee_Name
+FROM employees;
+
+Output:
+Employee_Name
+Ravi
+
+Table Alias
+------------
+SELECT e.name
+FROM employees e;
+
+Here:
+e = employees
+
+Real-Time Example
+Useful in joins.
+
+SELECT e.name,d.department_name
+FROM employees e
+JOIN departments d
+ON e.dept_id=d.dept_id;
 
 
+40. CASE Statement
+CASE is used to apply conditional logic in SQL and works similarly to IF-ELSE statements
 
+SELECT name,
+CASE
+    WHEN salary >= 70000 THEN 'High'
+    WHEN salary >= 50000 THEN 'Medium'
+    ELSE 'Low'
+END AS Salary_Category
+FROM employees;
 
-
-
-
+Output
+Name	Category
+Ravi	High
+John	Medium
+Sam	  Low
 
 
 
