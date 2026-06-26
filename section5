@@ -1,5 +1,4 @@
 SECTION 5: Aggregate Functions & Grouping
-
 41. COUNT()
 42. SUM()
 43. AVG()
@@ -12,36 +11,193 @@ SECTION 5: Aggregate Functions & Grouping
 50. ROLLUP / CUBE (conceptual)
 
 
+41. COUNT()
+COUNT() is used to count the number of rows in a table
+
+SELECT COUNT(*)
+FROM employees;
+Example:-
+Emp_ID
+1
+2
+3
+
+Output:
+3
+
+
+42. SUM()
+SUM() returns the total value of a numeric column
+
+SELECT SUM(salary)
+FROM employees;
+Example
+Salary
+10000
+20000
+30000
+
+Output:
+60000
+
+
+43. AVG()
+AVG() calculates the average value of a numeric column.
+
+SELECT AVG(salary)
+FROM employees;
+
+Example:-
+Salary
+10000
+20000
+30000
+
+Output:
+20000
+
+
+44. MIN()
+MIN() returns the minimum value from a column
+SELECT MIN(salary)
+FROM employees;
+
+Example
+Salary
+10000
+20000
+30000
+
+Output:
+10000
+
+
+45. MAX()
+MAX() returns the maximum value from a column
+
+SELECT MAX(salary)
+FROM employees;
+
+Example
+Output:
+30000
+
+
+46. GROUP BY
+GROUP BY is used to group rows with similar values and perform aggregate calculations on each group
+
+Example Table
+Name	Dept	Salary
+Ravi	IT	  50000
+John	IT	  60000
+Sam	  HR	  40000
+
+SELECT department,
+AVG(salary)
+FROM employees
+GROUP BY department;
+
+Output:-
+Department	Avg Salary
+  IT	       55000
+  HR	        40000
+
+
+47. HAVING
+HAVING filters grouped records after GROUP BY has been applied.
+
+SELECT department,
+AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
+
+Output
+Department
+IT
+
+
+48. Difference Between WHERE and HAVING
+WHERE filters rows before grouping, while HAVING filters groups after aggregation.
+
+      WHERE                                       	HAVING
+     Filters rows	                               ilters groups
+Used before GROUP BY	                       Used after GROUP BY
+Cannot use aggregate functions directly	   Can use aggregate functions
+
+WHERE Example - Filters individual rows.
+
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+HAVING Example - Filters groups.
+
+SELECT department,
+AVG(salary)
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 50000;
 
 
 
+49. Aggregate vs Scalar Functions
+Aggregate functions - work on multiple rows and return a single result
+scalar functions - operate on individual valuess
+
+Aggregate Functions - Operate on multiple rows and return one value.
+---------------------------------------------------------------------
+Examples:
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+
+Example - Returns one value.
+
+SELECT AVG(salary)
+FROM employees;
+
+Scalar Functions - Operate on one value and return one value.
+-----------------------------------------------------------
+Examples:
+UPPER()
+LOWER()
+LENGTH()
+ROUND()
+
+SELECT UPPER(name)
+FROM employees;
+
+Output:
+RAVI
+JOHN
+SAM
 
 
+50. ROLLUP - CUBE
+ROLLUP generates subtotals and grand totals
+CUBE generates totals for all possible combinations of grouped columns
 
+ROLLUP - Creates subtotals and grand totals.
+-------------------------------------------
+Example
+SELECT department,
+SUM(salary)
+FROM employees
+GROUP BY ROLLUP(department);
 
+Output:
+Department	Total Salary
+IT	         110000
+HR	         40000
+NULL	       150000
 
+NULL row = Grand Total
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CUBE
+Generates all possible combinations and totals.
 
 
 
