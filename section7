@@ -1,0 +1,203 @@
+SECTION 7: Subqueries & CTEs 
+61. What is a subquery?
+62. Single-row subquery
+63. Multi-row subquery
+64. Correlated subquery
+65. EXISTS
+66. IN vs EXISTS
+67. Common Table Expression (CTE)
+68. Recursive CTE
+69. WITH clause
+70. CTE vs subquery
+
+
+61. What is a subquery?
+A subquery is a query nested inside another SQL query and is used to provide data to the outer query
+
+SELECT *
+FROM employees
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM employees
+);
+
+Inner Query:
+-------------
+SELECT AVG(salary)
+FROM employees;
+
+Outer Query:
+-------------
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+Real-Time Example - Find employees earning above average salary.
+
+
+62. Single-Row Subquery
+A single-row subquery returns only one row or value and is usually used with operators like =, >, <
+
+SELECT *
+FROM employees
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM employees
+);
+
+AVG returns one value.
+
+Example:
+50000
+
+
+63. Multi-Row Subquery
+A multi-row subquery returns multiple rows and is commonly used with IN, ANY, or ALL operators
+
+SELECT *
+FROM employees
+WHERE department_id IN
+(
+    SELECT department_id
+    FROM departments
+);
+
+Inner Query may return:
+10
+20
+30
+Multiple rows returned.
+
+
+64. Correlated Subquery
+A subquery that depends on the outer query.
+It executes once for every row processed by the outer query
+
+ex:-Find employees earning above their department average.
+
+SELECT e1.name,
+e1.salary
+FROM employees e1
+WHERE salary >
+(
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e1.department=e2.department
+);
+
+For each employee:-
+Calculate department average
+Compare employee salary
+
+
+65. EXISTS
+The EXISTS operator is used in a subquery to test for the presence of records. It returns a simple true/false value
+EXISTS returns TRUE if the subquery returns at least one row
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
