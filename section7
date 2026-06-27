@@ -96,25 +96,86 @@ Compare employee salary
 The EXISTS operator is used in a subquery to test for the presence of records. It returns a simple true/false value
 EXISTS returns TRUE if the subquery returns at least one row
 
+Finding Matches (EXISTS):-
+To find all customers who have placed at least one order, check for their ID inside the Orders table:
+
+SELECT customer_name 
+FROM Customers c
+WHERE EXISTS (
+    SELECT 1 
+    FROM Orders o 
+    WHERE o.customer_id = c.customer_id
+);
 
 
 
+66. IN vs EXISTS
+Feature                           EXISTS Operator                                                   IN Operator
+--------------------------------------------------------------------------------------------------------------------------------------
+Primary Purpose    -     Checks for the existence of rows in a subquery.       Checks if a column value matches any value in a list.
+Performance        -  Faster on large datasets due to short-circuiting.      Efficient for small, static lists or scanned lookup results.
+NULL Behavior      -   Treats NULL rows as valid existing rows (TRUE).               Fails to match NULL values (UNKNOWN).
+Input Type         -         Requires a nested subquery.                         Accepts a subquery or a hardcoded list like ('A', 'B').
 
 
 
+67. Common Table Expression (CTE)
+-A CTE is a temporary result set that is created inside a query and can be used like a temporary table.
+-It makes complex queries easier to read and organize.
+-CTE is defined using the WITH keyword.
+
+Syntax:
+------------
+WITH cte_name AS
+(
+    SELECT column1, column2
+    FROM table_name
+    WHERE condition
+)
+SELECT *
+FROM cte_name;
+
+Example 1: Find Employees with Salary Greater Than Average
+--------------------------------------------------------
+WITH avg_salary AS
+(
+    SELECT AVG(salary) AS avg_sal
+    FROM employees
+)
+SELECT *
+FROM employees
+WHERE salary > (SELECT avg_sal FROM avg_salary);
+
+Example 2: Using CTE Like a Temporary Table
+--------------------------------------------
+WITH high_salary AS
+(
+    SELECT name, salary
+    FROM employees
+    WHERE salary > 60000
+)
+SELECT *
+FROM high_salary;
 
 
+68. Recursive CTE
+A Recursive CTE is a specialized version of a Common Table Expression that references itself. 
+It is designed to loop through hierarchical data, such as organizational charts, family trees, or bill-of-materials, until a termination condition is met.
 
 
+69. WITH clause
+The SQL WITH clause (also known as a Common Table Expression or CTE) lets you define a temporary, named result set within an execution scope
 
 
+70. CTE vs subquery
+While Common Table Expressions (CTEs) and subqueries perform similar tasks, they differ significantly in readability, reusability, and capability. 
+CTEs are generally preferred for complex queries, while subqueries are ideal for quick, simple lookups.
 
-
-
-
-
-
-
+Feature                 CTE (WITH clause)                         Subquery (Inline View)
+Readability      High;sequential top-to-bottom layout         Low; nested inside the main query
+Reusability      High; can reference multiple times           Low; must redefine for every use
+Recursion        Supported (WITH RECURSIVE)                           Not supported
+Scope            Available to the entire query block         Available only to the enclosing clause
 
 
 
