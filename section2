@@ -14,3 +14,64 @@ Concepts
 11. What is DDL?
 DDL stands for Data Definition Language. 
 It is used to create, modify, and delete database objects such as tables and databases
+
+
+Task 2: Table Modification
+Objective: Modify an existing table using DDL commands.
+Requirements:
+● Add email column with UNIQUE constraint
+● Add default value to department
+● Drop an unused column
+
+➡️alter table employees
+  add email varchar(100);
+
+➡️ALTER TABLE employees
+  ADD CONSTRAINT unique_email UNIQUE(email);
+
+➡️insert into employees 
+  values(1,'nav',9,'it',50000,'ambati9@gmail.com');  #works well
+  
+➡️insert into employees 
+  values(2,'sai',10,'HR',60000,'ambati9@gmail.com');  #ERROR: 1062 (23000): Duplicate entry 'ambati9@gmail.com' for key 'employees.unique_email'
+  
+➡️alter table employees
+  alter department
+  set default 'it';
+  
+➡️INSERT INTO employees(emp_id,name,age,salary,email)
+  VALUES(3,'Sam',11,45000,'sam@gmail.com');
+  
+➡️alter table employees
+  drop column age;
+  
+➡️desc employees;
+  +------------+---------------+------+-----+---------+-------+
+  | Field      | Type          | Null | Key | Default | Extra |
+  +------------+---------------+------+-----+---------+-------+
+  | emp_id     | int           | NO   | PRI | NULL    |       |
+  | name       | varchar(100)  | YES  |     | NULL    |       |
+  | department | varchar(50)   | YES  |     | it      |       |
+  | salary     | decimal(10,2) | NO   |     | NULL    |       |
+  | email      | varchar(100)  | YES  | UNI | NULL    |       |
+  +------------+---------------+------+-----+---------+-------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
