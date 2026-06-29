@@ -97,9 +97,32 @@ Requirements:
 ● salary cannot be NULL
 
 
+➡️\sql
+➡️\connect root@localhost:3306
 
+➡️create database company;
 
+➡️use company;
 
+➡️CREATE TABLE employees(
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    department VARCHAR(50),
+    salary DECIMAL(10,2) NOT NULL
+);
+
+➡️desc employees
+
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| emp_id     | int           | NO   | PRI | NULL    |       |
+| name       | varchar(100)  | YES  |     | NULL    |       |
+| age        | int           | YES  |     | NULL    |       |
+| department | varchar(50)   | YES  |     | NULL    |       |
+| salary     | decimal(10,2) | NO   |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
 
 
 
