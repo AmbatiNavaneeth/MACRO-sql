@@ -1,0 +1,143 @@
+1. LOOKUP - Searching for one value using another value.
+A lookup is the process of retrieving one piece of data using another known value.
+
+Real-Life Example 1: Phone Contacts
+Suppose your phone has:
+Name	Phone Number
+Nav	9876543210
+
+You know the name Nav.You want his phone number.You're looking up the phone number using the name.
+Nav
+ ↓
+9876543210
+
+Why is Lookup Important?
+Because in databases, we rarely know the ID.
+
+Find everyone working in the same department as Amit.
+Do you know Amit's dept_id?❌ No.
+You only know his name.
+So SQL first performs a lookup.
+
+SELECT dept_id
+FROM employees
+WHERE name='Amit';
+
+Result
+101
+
+Now SQL uses that result.
+
+SELECT *
+FROM employees
+WHERE dept_id=101;
+
+Result
+Name
+Nav
+Sam
+Ravi
+Kiran
+Amit
+
+Instead of running two separate queries, SQL combines them into one subquery.
+
+SELECT *
+FROM employees
+WHERE dept_id =
+(
+    SELECT dept_id
+    FROM employees
+    WHERE name='Amit'
+);
+
+2. LOOKUP TABLE
+A lookup table is a table that stores reference or master data, which is referenced by other tables using a foreign key to reduce redundancy and maintain consistency.
+
+Why Do We Use Lookup Tables?
+1. Avoid duplicate data
+2. Save storage
+3. Easy updates
+4. Maintain data consistency
+
+Example:-
+Lookup Table: departments
+dept_id	  dept_name
+101	        IT
+102	        HR
+103	      Sales
+104	     Finance
+
+Main Table: employees
+emp_id	name	dept_id
+ 1	     Nav	 101
+ 2	    John	 102
+ 3	    Amit	 101
+
+The employee table doesn't store "IT", "HR", "Sales" repeatedly.
+It stores only:
+101
+102
+101
+
+Whenever we want the department name, we look it up in the departments table.
+
+Without a Lookup Table
+employees table looked like this:
+
+emp_id	name	department
+1	Nav	IT
+2	John	HR
+3	Amit	IT
+
+The word "IT" is repeated many times.
+If the company changes the department name to Information Technology, you'd have to update every row.
+
+but if we use lookup table if the department name changes:You update one row only in the departments table.
+
+
+Lookup
+↓
+Action
+(Searching for data)
+
+Lookup Table
+↓
+Place
+(Table that stores reference data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
