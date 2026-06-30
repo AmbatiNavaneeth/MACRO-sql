@@ -131,7 +131,7 @@ SELECT *
 FROM employees
 WHERE department IS NOT NULL;
 
-
+-------------------------------------------------------------------------------------------------------------
 Task 3: Employee Data Management
 Objective: Perform data manipulation operations.
 Requirements:
@@ -141,19 +141,79 @@ Requirements:
 
 
 
+      
+     ➡️insert into employees (emp_id,name,department,salary,email) 
+      values 
+      (4,'Ravi','IT',50000,'ravi@gmail.com'), 
+      (5,'John','HR',45000,'john@gmail.com'), 
+      (6,'ram','Sales',60000,'ram@gmail.com'), 
+      (7,'Kiran','IT',70000,'kiran@gmail.com'), 
+      (8,'Priya','HR',55000,'priya@gmail.com'), 
+      (9,'Anjali','Finance',80000,'anjali@gmail.com'),
+      (10,'Rahul','Sales',52000,'rahul@gmail.com'), 
+      (11,'Amit','IT',90000,'amit@gmail.com'), 
+      (12,'Neha',NULL,48000,'neha@gmail.com'), 
+      (13,'Vijay',NULL,62000,'vijay@gmail.com');
+
+ >select * from employees;
++--------+--------+------------+----------+-------------------+
+| emp_id | name   | department | salary   | email             |
++--------+--------+------------+----------+-------------------+
+|      1 | nav    | it         | 50000.00 | ambati9@gmail.com |
+|      3 | Sam    | it         | 45000.00 | sam@gmail.com     |
+|      4 | Ravi   | IT         | 50000.00 | ravi@gmail.com    |
+|      5 | John   | HR         | 45000.00 | john@gmail.com    |
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com     |
+|      7 | Kiran  | IT         | 70000.00 | kiran@gmail.com   |
+|      8 | Priya  | HR         | 55000.00 | priya@gmail.com   |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com  |
+|     10 | Rahul  | Sales      | 52000.00 | rahul@gmail.com   |
+|     11 | Amit   | IT         | 90000.00 | amit@gmail.com    |
+|     12 | Neha   | NULL       | 48000.00 | neha@gmail.com    |
+|     13 | Vijay  | NULL       | 62000.00 | vijay@gmail.com   |
++--------+--------+------------+----------+-------------------+
 
 
+➡️update employees 
+ set salary =salary +5000 
+ where department='it';
+
+ >select * from employees;
++--------+--------+------------+----------+-------------------+
+| emp_id | name   | department | salary   | email             |
++--------+--------+------------+----------+-------------------+
+|      1 | nav    | it         | 55000.00 | ambati9@gmail.com |
+|      3 | Sam    | it         | 50000.00 | sam@gmail.com     |
+|      4 | Ravi   | IT         | 55000.00 | ravi@gmail.com    |
+|      5 | John   | HR         | 45000.00 | john@gmail.com    |
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com     |
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com   |
+|      8 | Priya  | HR         | 55000.00 | priya@gmail.com   |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com  |
+|     10 | Rahul  | Sales      | 52000.00 | rahul@gmail.com   |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com    |
+|     12 | Neha   | NULL       | 48000.00 | neha@gmail.com    |
+|     13 | Vijay  | NULL       | 62000.00 | vijay@gmail.com   |
++--------+--------+------------+----------+-------------------+
 
 
+➡️delete from employees where department is NULL;
 
-
-
-
-
-
-
-
-
+ >select * from employees;
++--------+--------+------------+----------+-------------------+
+| emp_id | name   | department | salary   | email             |
++--------+--------+------------+----------+-------------------+
+|      1 | nav    | it         | 55000.00 | ambati9@gmail.com |
+|      3 | Sam    | it         | 50000.00 | sam@gmail.com     |
+|      4 | Ravi   | IT         | 55000.00 | ravi@gmail.com    |
+|      5 | John   | HR         | 45000.00 | john@gmail.com    |
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com     |
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com   |
+|      8 | Priya  | HR         | 55000.00 | priya@gmail.com   |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com  |
+|     10 | Rahul  | Sales      | 52000.00 | rahul@gmail.com   |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com    |
++--------+--------+------------+----------+-------------------+
 
 
 
