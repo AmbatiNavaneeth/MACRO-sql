@@ -180,49 +180,192 @@ Forgetting ON
 Wrong column match
 Using INNER JOIN when LEFT JOIN is needed.[selecting the wrong join type]
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Task 6: Employee & Department Join
+Objective: Combine data from multiple tables.
+Requirements:
+● Create departments table
+● Fetch employee names with department names
+● Include employees without department
 
 
+● Creating departments table
+create table 
+departments(dept_id int primary key,dept_name varchar(20));
+
+INSERT INTO departments
+VALUES
+(101,'IT'),
+(102,'HR'),
+(103,'Sales'),
+(104,'Finance');
+
+● Now employees doest have dept_id so we need add column and update values
+alter table employees add column dept_id int;
+select * from employees;
++--------+--------+------------+----------+-------------------+---------+
+| emp_id | name   | department | salary   | email             | dept_id |
++--------+--------+------------+----------+-------------------+---------+
+|      1 | nav    | it         | 55000.00 | ambati9@gmail.com |    NULL |
+|      3 | Sam    | it         | 50000.00 | sam@gmail.com     |    NULL |
+|      4 | Ravi   | IT         | 55000.00 | ravi@gmail.com    |    NULL |
+|      5 | John   | HR         | 45000.00 | john@gmail.com    |    NULL |
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com     |    NULL |
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com   |    NULL |
+|      8 | Priya  | HR         | 55000.00 | priya@gmail.com   |    NULL |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com  |    NULL |
+|     10 | Rahul  | Sales      | 52000.00 | rahul@gmail.com   |    NULL |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com    |    NULL |
++--------+--------+------------+----------+-------------------+---------+
+
+UPDATE employees
+SET dept_id = 101
+WHERE UPPER(department) = 'IT';
+
+update employees
+set dept_id=102
+where upper(department)='HR';
+
+UPDATE employees
+SET dept_id = 103
+WHERE UPPER(department) = 'SALES';
+
+UPDATE employees
+SET dept_id = 103
+WHERE UPPER(department) = 'FINANCE';
+
+select * from employees;
++--------+--------+------------+----------+-------------------+---------+
+| emp_id | name   | department | salary   | email             | dept_id |
++--------+--------+------------+----------+-------------------+---------+
+|      1 | nav    | it         | 55000.00 | ambati9@gmail.com |     101 |
+|      3 | Sam    | it         | 50000.00 | sam@gmail.com     |     101 |
+|      4 | Ravi   | IT         | 55000.00 | ravi@gmail.com    |     101 |
+|      5 | John   | HR         | 45000.00 | john@gmail.com    |     102 |
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com     |     103 |
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com   |     101 |
+|      8 | Priya  | HR         | 55000.00 | priya@gmail.com   |     102 |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com  |     103 |
+|     10 | Rahul  | Sales      | 52000.00 | rahul@gmail.com   |     103 |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com    |     101 |
++--------+--------+------------+----------+-------------------+---------+
+
+● making the dept_id in employees as foreign key
+A Foreign Key is a column that creates a relationship between two tables and ensures that values in the child table exist in the parent table.
+
+alter table employees
+add constraint fk_department
+foreign key (dept_id)
+references departments(dept_id);
+
+● Fetch employee names with department names
+select
+e.name,
+d.dept_name
+from employees e
+inner join departments d
+on e.dept_id=d.dept_id;
+
++--------+-----------+
+| name   | dept_name |
++--------+-----------+
+| nav    | IT        |
+| Sam    | IT        |
+| Ravi   | IT        |
+| Kiran  | IT        |
+| Amit   | IT        |
+| John   | HR        |
+| Priya  | HR        |
+| ram    | Sales     |
+| Anjali | Sales     |
+| Rahul  | Sales     |
++--------+-----------+
+
+● Show Only IT Employees
+select e.name,d.dept_name,e.salary
+from employees e
+inner join departments d
+on e.dept_id=d.dept_id
+where dept_name="IT";
+
++-------+-----------+----------+
+| name  | dept_name | salary   |
++-------+-----------+----------+
+| nav   | IT        | 55000.00 |
+| Sam   | IT        | 50000.00 |
+| Ravi  | IT        | 55000.00 |
+| Kiran | IT        | 75000.00 |
+| Amit  | IT        | 95000.00 |
++-------+-----------+----------+
 
 
+● Count Employees in Each Department
+select d.dept_name,
+count(e.emp_id) as total_employees
+from employees e
+inner join departments d
+on d.dept_id=e.dept_id;
+group by d.dept_name
 
++-----------+-----------------+
+| dept_name | total_employees |
++-----------+-----------------+
+| IT        |               5 |
+| HR        |               2 |
+| Sales     |               3 |
++-----------+-----------------+
 
+● Include employees without department
 
+INSERT INTO employees
+(emp_id, name, department, salary, email, dept_id)
+VALUES
+(12, 'Alex', NULL, 65000, 'alex@gmail.com', NULL),
+(13, 'Ali', NULL, 55000, 'ali@gmail.com', NULL);
 
+if we use inner then alex and ali will be not displayed, we need to use left and right joins
 
+select e.name, d.dept_name 
+from employees e 
+left join departments d 
+on e.dept_id=d.dept_id;
++--------+-----------+
+| name   | dept_name |
++--------+-----------+
+| nav    | IT        |
+| Sam    | IT        |
+| Ravi   | IT        |
+| John   | HR        |
+| ram    | Sales     |
+| Kiran  | IT        |
+| Priya  | HR        |
+| Anjali | Sales     |
+| Rahul  | Sales     |
+| Amit   | IT        |
+| Alex   | NULL      |
+| Ali    | NULL      |
++--------+-----------+
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select e.name, d.dept_name 
+from employees e right 
+join departments d 
+on e.dept_id=d.dept_id;
++--------+-----------+
+| name   | dept_name |
++--------+-----------+
+| nav    | IT        |
+| Sam    | IT        |
+| Ravi   | IT        |
+| Kiran  | IT        |
+| Amit   | IT        |
+| John   | HR        |
+| Priya  | HR        |
+| ram    | Sales     |
+| Anjali | Sales     |
+| Rahul  | Sales     |
+| NULL   | Finance   |
++--------+-----------+
 
 
 
