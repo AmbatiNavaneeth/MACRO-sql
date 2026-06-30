@@ -39,7 +39,7 @@ OR department='HR';
 
 
 33. BETWEEN
-ETWEEN is used to filter values within a specified range, including both boundary values
+BETWEEN is used to filter values within a specified range, including both boundary values
 SELECT *
 FROM employees
 WHERE salary BETWEEN 30000 AND 60000;  #equivalent to 30000>= and <=60000
@@ -175,19 +175,63 @@ Output
 Name	Category
 Ravi	High
 John	Medium
-Sam	  Low
+Sam	    Low
 
 
+--------------------------------------------------------------------------------------------
+Task 4: Employee Filtering Queries
+Objective: Filter and categorize employee data.
+Requirements:
+● Find employees with salary between a range
+● Search names using LIKE
+● Categorize employees using CASE
 
 
+➡️select * from
+   employees
+   where salary between 60000 AND 80000;
+
++--------+--------+------------+----------+------------------+
+| emp_id | name   | department | salary   | email            |
++--------+--------+------------+----------+------------------+
+|      6 | ram    | Sales      | 60000.00 | ram@gmail.com    |
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com  |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com |
++--------+--------+------------+----------+------------------+
+
+➡️ select name from employees where name like 'r%';
+    +-------+
+    | name  |
+    +-------+
+    | Ravi  |
+    | ram   |
+    | Rahul |
+    +-------+
 
 
+➡️ select name,salary, 
+   case 
+      when salary>=80000 then 'high' 
+      when salary>=60000 then 'medium' 
+      when salary>=40000 then 'low' 
+      else 'least' 
+   end as salary_category 
+   from employees;
 
-
-
-
-
-
+    +--------+----------+-----------------+
+    | name   | salary   | salary_category |
+    +--------+----------+-----------------+
+    | nav    | 55000.00 | low             |
+    | Sam    | 50000.00 | low             |
+    | Ravi   | 55000.00 | low             |
+    | John   | 45000.00 | low             |
+    | ram    | 60000.00 | medium          |
+    | Kiran  | 75000.00 | medium          |
+    | Priya  | 55000.00 | low             |
+    | Anjali | 80000.00 | high            |
+    | Rahul  | 52000.00 | low             |
+    | Amit   | 95000.00 | high            |
+    +--------+----------+-----------------+
 
 
 
