@@ -14,6 +14,9 @@ SECTION 5: Aggregate Functions & Grouping
 41. COUNT()
 COUNT() is used to count the number of rows in a table
 
+COUNT(*)-Counts every row.
+COUNT(email)-Counts only rows where email is NOT NULL.
+
 SELECT COUNT(*)
 FROM employees;
 Example:-
@@ -21,7 +24,6 @@ Emp_ID
 1
 2
 3
-
 Output:
 3
 
@@ -121,7 +123,7 @@ IT
 WHERE filters rows before grouping, while HAVING filters groups after aggregation.
 
       WHERE                                       	HAVING
-     Filters rows	                               ilters groups
+     Filters rows	                               filters groups
 Used before GROUP BY	                       Used after GROUP BY
 Cannot use aggregate functions directly	   Can use aggregate functions
 
@@ -138,7 +140,6 @@ AVG(salary)
 FROM employees
 GROUP BY department
 HAVING AVG(salary) > 50000;
-
 
 
 49. Aggregate vs Scalar Functions
@@ -199,6 +200,99 @@ NULL row = Grand Total
 CUBE
 Generates all possible combinations and totals.
 
+----------------------------------------------------------------------------------
+Task 5: Salary Analysis
+Objective: Analyze salary data using aggregates.
+Requirements:
+● Find average salary per department
+● Show departments with average salary above a threshold
+
+➡️select department,
+  avg(salary) as avg_salary
+  from employees 
+  group by department;
+
++------------+--------------+
+| department | avg_salary   |
++------------+--------------+
+| it         | 66000.000000 |
+| HR         | 50000.000000 |
+| Sales      | 56000.000000 |
+| Finance    | 80000.000000 |
++------------+--------------+
+
+➡️select department,
+  avg(salary) as avg_salary
+  from employees 
+  group by department
+  having avg(salary)>60000;
+
+ +------------+--------------+
+| department | avg_salary   |
++------------+--------------+
+| it         | 66000.000000 |
+| Finance    | 80000.000000 |
++------------+--------------+
+
+➡️Count Employees in Each Department
+select department,      
+count(*) as tot_employees     
+from emlpoyees
+group by department;
+
++------------+---------------+
+| department | tot_employees |
++------------+---------------+
+| it         |             5 |
+| HR         |             2 |
+| Sales      |             2 |
+| Finance    |             1 |
++------------+---------------+
+
+➡️Total salary in Each Department
+select department,
+sum(salary) as tot_salary
+from employees
+group by department;
+
++------------+------------+
+| department | tot_salary |
++------------+------------+
+| it         |  330000.00 |
+| HR         |  100000.00 |
+| Sales      |  112000.00 |
+| Finance    |   80000.00 |
++------------+------------+
+
+➡️Highest Salary in Each Department
+select department,
+max(salary) as mx_salary_in_department
+from employees
+group by department;
+
++------------+-------------------------+
+| department | mx_salary_in_department |
++------------+-------------------------+
+| it         |                95000.00 |
+| HR         |                55000.00 |
+| Sales      |                60000.00 |
+| Finance    |                80000.00 |
++------------+-------------------------+
+
+➡️Lowest Salary in Each Department
+select department,
+min(salary) as mx_salary_in_department
+from employees
+group by department;
+
++------------+-------------------------+
+| department | mx_salary_in_department |
++------------+-------------------------+
+| it         |                50000.00 |
+| HR         |                45000.00 |
+| Sales      |                52000.00 |
+| Finance    |                80000.00 |
++------------+-------------------------+
 
 
 
@@ -229,33 +323,3 @@ Generates all possible combinations and totals.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''
