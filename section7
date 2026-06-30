@@ -146,6 +146,8 @@ SELECT *
 FROM employees
 WHERE salary > (SELECT avg_sal FROM avg_salary);
 
+ which equals to this - select * from employees where salary>(select avg(salary) from employees);
+
 Example 2: Using CTE Like a Temporary Table
 --------------------------------------------
 WITH high_salary AS
@@ -157,11 +159,34 @@ WITH high_salary AS
 SELECT *
 FROM high_salary;
 
+which equals to this - select name,salary from employees where salary>60000;
 
-68. Recursive CTE
+
+68. Recursive CTE - A Recursive CTE is a query that loops over its own results until a specific condition is met
 A Recursive CTE is a specialized version of a Common Table Expression that references itself. 
 It is designed to loop through hierarchical data, such as organizational charts, family trees, or bill-of-materials, until a termination condition is met.
 
+WITH RECURSIVE Counter AS 
+(
+    -- ANCHOR: Start at 1
+    SELECT 1 AS num
+    UNION ALL     # UNION forces the database to sort and filter out duplicate rows on every single iteration,
+    -- RECURSIVE: Add 1 to the previous number
+    SELECT num + 1
+    FROM Counter
+    WHERE num < 5 -- TERMINATION CONDITION: Stop when we hit 5
+)
+SELECT * FROM Counter;
+
++-----+
+| num |
++-----+
+|   1 |
+|   2 |
+|   3 |
+|   4 |
+|   5 |
++-----+
 
 69. WITH clause
 The SQL WITH clause (also known as a Common Table Expression or CTE) lets you define a temporary, named result set within an execution scope
@@ -177,8 +202,13 @@ Reusability      High; can reference multiple times           Low; must redefine
 Recursion        Supported (WITH RECURSIVE)                           Not supported
 Scope            Available to the entire query block         Available only to the enclosing clause
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+Task 7: Advanced Salary Queries
+Objective: Use subqueries and CTEs for complex logic.
+Requirements:
+● Find employees earning more than average salary
+● Use CTE to rank salaries 
 
 
 
