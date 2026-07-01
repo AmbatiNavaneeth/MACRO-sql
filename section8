@@ -93,10 +93,13 @@ Goals - Remove duplicate data, Improve integrity, Reduce storage waste
 Denormalization is the process of intentionally adding redundant data to improve read performance.
 helps especially in reporting and analytics systems."
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
+Task 8: Query Optimization
+Objective: Improve query performance.
+Requirements:
+● Create index on salary
+● Compare query performance before and after index
 
 
 
