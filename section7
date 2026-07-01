@@ -211,11 +211,101 @@ Requirements:
 ● Use CTE to rank salaries 
 
 
+⭐Find Employees Earning Above Average Salary 
+
+SELECT *
+FROM employees
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM employees
+);
+
++--------+--------+------------+----------+------------------+---------+
+| emp_id | name   | department | salary   | email            | dept_id |
++--------+--------+------------+----------+------------------+---------+
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com  |     101 |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com |     103 |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com   |     101 |
+|     12 | Alex   | NULL       | 65000.00 | alex@gmail.com   |    NULL |
++--------+--------+------------+----------+------------------+---------+
+
+
+⭐Find the Second Highest Salary
+
+SELECT MAX(salary)
+FROM employees
+WHERE salary <
+(
+    SELECT MAX(salary)
+    FROM employees
+);
 
 
 
+⭐Find the Employee with the Second Highest Salary
+SELECT *
+FROM employees
+WHERE salary =
+(
+    SELECT MAX(salary)
+    FROM employees
+    WHERE salary <
+    (
+        SELECT MAX(salary)
+        FROM employees
+    )
+);
 
++--------+--------+------------+----------+------------------+---------+
+| emp_id | name   | department | salary   | email            | dept_id |
++--------+--------+------------+----------+------------------+---------+
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com |     103 |
++--------+--------+------------+----------+------------------+---------+
 
+⭐Using a CTE
+
+WITH avg_salary AS
+(
+    SELECT AVG(salary) AS avg_sal
+    FROM employees
+)
+SELECT *
+FROM employees
+WHERE salary >
+(
+    SELECT avg_sal
+    FROM avg_salary
+);
+
++--------+--------+------------+----------+------------------+---------+
+| emp_id | name   | department | salary   | email            | dept_id |
++--------+--------+------------+----------+------------------+---------+
+|      7 | Kiran  | IT         | 75000.00 | kiran@gmail.com  |     101 |
+|      9 | Anjali | Finance    | 80000.00 | anjali@gmail.com |     103 |
+|     11 | Amit   | IT         | 95000.00 | amit@gmail.com   |     101 |
+|     12 | Alex   | NULL       | 65000.00 | alex@gmail.com   |    NULL |
++--------+--------+------------+----------+------------------+---------+
+
+⭐Find Employees Working in the Same Department as 'Amit'
+SELECT *
+FROM employees
+WHERE dept_id =
+(
+    SELECT dept_id
+    FROM employees
+    WHERE name = 'Amit'
+);
+
++-------+
+| name  |
++-------+
+| nav   |
+| Sam   |
+| Ravi  |
+| Kiran |
+| Amit  |
++-------+
 
 
 
