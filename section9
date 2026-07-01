@@ -40,9 +40,11 @@ acc_id	balance
 ACID stands for Atomicity, Consistency, Isolation, and Durability. These properties ensure reliable transaction processing and maintain data integrit
 
 Atomicity - guarantees that all SQL statements inside a transaction must execute successfully, or none of them do
-Sending money on Venmo. The app must deduct money from you and add it to your friend. If the app crashes halfway through, it cancels the deduction so your money doesn't disappear into thin air.
+Sending money on Venmo. The app must deduct money from you and add it to your friend. 
+If the app crashes halfway through, it cancels the deduction so your money doesn't disappear into thin air.
 
-Consistency - A rule ensuring a transaction can only change data in ways that follow all database rules, types, and constraints. It prevents corrupt data from being saved
+Consistency - A rule ensuring a transaction can only change data in ways that follow all database rules, types, and constraints. 
+It prevents corrupt data from being saved
 Setting a Password length. If a database rule states passwords must be at least 8 characters, the system will reject and block any attempt to save a 5-character password.
 
 Isolation - A rule ensuring that multiple transactions running at the exact same time do not bleed into or mess with each other. Each runs as if it is the only one.
@@ -216,46 +218,71 @@ Requirements:
 ● Update salary and rollback
 ● Use savepoint and commit partially
 
-START TRANSACTION;
+● Update salary and rollback
+
+start transaction;
+
+update employees
+set salary = 100000
+where name='amit';
+
+SELECT name, salary
+FROM employees
+WHERE name = 'Amit';
++------+-----------+
+| name | salary    |
++------+-----------+
+| Amit | 100000.00 |
++------+-----------+
+
+rollback;
+
+SELECT name, salary
+FROM employees
+WHERE name = 'Amit';
+
++------+----------+
+| name | salary   |
++------+----------+
+| Amit | 95000.00 |
++------+----------+
+
+
+● Use savepoint and commit partially
+
+start transaction ;
 
 UPDATE employees
 SET salary = salary + 5000
-WHERE emp_id = 1;
+WHERE name = 'nav';
+
+SELECT name, salary
+FROM employees
+WHERE name = 'Amit';
++------+-----------+
+| name | salary    |
++------+-----------+
+| Amit | 100000.00 |
++------+-----------
 
 SAVEPOINT sp1;
 
 UPDATE employees
-SET salary = salary + 3000
-WHERE emp_id = 2;
+SET salary = salary + 5000
+WHERE name = 'Amit';
 
 ROLLBACK TO sp1;
 
+SELECT name, salary
+FROM employees
+WHERE name = 'Amit';
++------+----------+
+| name | salary   |
++------+----------+
+| Amit | 95000.00 |
++------+----------+
+
 COMMIT;
-
-Output
-
-Before:
-emp_id  	salary
- 1	      50000
- 2	      55000
-
-After:
-emp_id	  salary
-  1	     55000
-  2	     55000
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
