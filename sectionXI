@@ -238,26 +238,94 @@ Sharding is a database architecture pattern that cuts a single database into sma
 Multi-tenancy allows multiple customers to share the same database infrastructure securely. - Splits data on across multiple independent server
 A SaaS company stores data for multiple clients in one database.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Task 11: Secure Database Setup
+Objective: Design and secure a database.
+Requirements:
+● Normalize employee schema to 3NF
+● Create read-only and admin users
+● Demonstrate GRANT and REVOKE
 
 
+● Normalize employee schema to 3NF
+we know that,
+normalization is about arranging data in database to reduce redundancy and maintain data integrity
+1nf-each rom need to save one value only
+2nf-should follow 1nf and Every non-key column must depend on the whole primary key.
+3nf-it is in 2nf No non-key column depends on another non-key column.
+
+Example
+emp_id	dept_id	department
+1	1	IT
+
+Here:
+department depends on dept_id, Not on emp_id.
+This is called a transitive dependency.
+
+so we can write as 
+
+emp_id	name	dept_id
+1	 nav	 101
+
+dept_id   dept_name
+101         IT
+
+which follows 3nf
+
+our tables are already in that form
+
+ select * from employees;
++--------+--------+------------+-----------+-------------------+---------+
+| emp_id | name   | department | salary    | email             | dept_id |
++--------+--------+------------+-----------+-------------------+---------+
+|      1 | nav    | it         |  65000.00 | ambati9@gmail.com |     101 |
+|      3 | Sam    | it         |  50000.00 | sam@gmail.com     |     101 |
+|      4 | Ravi   | IT         |  55000.00 | ravi@gmail.com    |     101 |
+|      5 | John   | HR         |  45000.00 | john@gmail.com    |     102 |
+|      6 | ram    | Sales      |  60000.00 | ram@gmail.com     |     103 |
+|      7 | Kiran  | IT         |  75000.00 | kiran@gmail.com   |     101 |
+|      8 | Priya  | HR         |  55000.00 | priya@gmail.com   |     102 |
+|      9 | Anjali | Finance    |  80000.00 | anjali@gmail.com  |     103 |
+|     10 | Rahul  | Sales      |  52000.00 | rahul@gmail.com   |     103 |
+|     11 | Amit   | IT         | 100000.00 | amit@gmail.com    |     101 |
+|     12 | Alex   | NULL       |  65000.00 | alex@gmail.com    |    NULL |
+|     13 | Ali    | NULL       |  55000.00 | ali@gmail.com     |    NULL |
++--------+--------+------------+-----------+-------------------+---------+
+select * from departments ;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|     101 | IT        |
+|     102 | HR        |
+|     103 | Sales     |
+|     104 | Finance   |
++---------+-----------+
 
 
+● Create read-only and admin users
+ CREATE USER 'read_only'@'localhost' IDENTIFIED BY 'read123';
+ CREATE USER 'adminuser'@'localhost' IDENTIFIED BY 'admin123';
 
+● Demonstrate GRANT and REVOKE
+GRANT SELECT
+ON company.*
+TO 'readonly'@'localhost';
 
+FLUSH PRIVILEGES;
 
+REVOKE SELECT
+ON company.*
+FROM 'readonly'@'localhost';
 
+GRANT ALL PRIVILEGES
+on company.*
+TO 'adminuser'@'localhost';
 
+FLUSH PRIVILEGES;
 
-
-
-
-
-
-
-
-
-
-
+REVOKE SELECT
+ON company.*
+FROM 'adminuser'@'localhost';
 
 
 
