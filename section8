@@ -156,17 +156,36 @@ Requirements:
 ● Compare query performance before and after index
 
 
+● Create index on salary
+create INDEX idx_salary 
+on employee(salary)
+
+● Compare query performance before and after index
+we use explain to check the query performance it tells how MySQL plans to execute a query
+
+before:-
+
+EXPLAIN 
+select * 
+from employees
+where salary=55000
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | employees | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |       10 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+ALL-MySQL scans the entire table.
 
 
-
-
-
-
-
-
-
-
-
+after:
+same query need to be perform 
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table     | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | employees | NULL       | ref  | NULL          | idx_salary | NULL    | NULL |   10 |       10 | Using where |
++----+-------------+-----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+we can see the change 
+Indexes show their real benefit when tables contain thousands or millions of rows.
 
 
 
