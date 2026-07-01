@@ -150,6 +150,12 @@ A function returns a single value after performing calculations.
 A Trigger is a special type of stored procedure that automatically executes (fires) when a specific event occurs on a table or view.
 Triggers are mainly used to maintain data integrity, and track changes in tables.
 
+Real-Time Example
+Imagine an ATM. When you withdraw ₹5000:
+Money Withdrawn
+        ↓
+SMS Sent Automatically
+
 Triggers are executed automatically when one of the following events occurs:
 INSERT – When a new row is added.
 UPDATE – When an existing row is modified.
@@ -298,32 +304,33 @@ old_salary	new_salary
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Task 10: CSV Data Analysis Pipeline
-Objective: Load, clean, analyze, and process CSV data asynchronously.
-
-CSV (Comma-Separated Values) is a file format used to store tabular data where each value is separated by a comma.
-Example: employees.csv
-emp_id,name,department,salary
-1,Nav,IT,55000
-2,John,HR,45000
-3,Ravi,IT,70000
-
-Data Pipeline?
-A Data Pipeline is a sequence of steps that moves data from one stage to another while processing it.
-CSV File
-   ↓
-Load Data
-   ↓
-Clean Data
-   ↓
-Analyze Data
-   ↓
-Generate Report
+Task 10: Automation Using SQL Objects
+Objective: Automate database logic.
+Requirements:
+● Create a view for high-salary employees
+● Create a trigger to log salary changes
 
 
+● Create a view for high-salary employees
+
+ create VIEW high_salary_employees as
+ select * from employees
+ where salary>80000;
+
+ select * from high_salary_employees;
++--------+------+------------+-----------+----------------+---------+
+| emp_id | name | department | salary    | email          | dept_id |
++--------+------+------------+-----------+----------------+---------+
+|     11 | Amit | IT         | 100000.00 | amit@gmail.com |     101 |
++--------+------+------------+-----------+----------------+---------+
+
+
+● Create a trigger to log salary changes
 
 
 
+
+UPDATE employee->TriggerInsert->into salary_log
 
 
 
