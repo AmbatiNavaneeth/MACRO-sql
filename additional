@@ -107,26 +107,6 @@ Place
 (Table that stores reference data)
 
 
-3. CSV (Comma-Separated Values) is a file format used to store tabular data where each value is separated by a comma.
-Example: employees.csv
-emp_id,name,department,salary
-1,Nav,IT,55000
-2,John,HR,45000
-3,Ravi,IT,70000
-
-4. Data Pipeline?
-A Data Pipeline is a sequence of steps that moves data from one stage to another while processing it.
-CSV File
-   ↓
-Load Data
-   ↓
-Clean Data
-   ↓
-Analyze Data
-   ↓
-Generate Report
-
-
 
 
 
