@@ -33,7 +33,61 @@ Unique Index
 Clustered Index
 A clustered index determines the physical order of data in a table.
 Example:-
-Records are physically stored according to EmployeeID.
+Suppose you have this table:
+emp_id	name
+ 5	     John
+ 2	     Nav
+ 8	     Sam
+ 1	     Ravi
+
+If emp_id is the Clustered Index, MySQL stores it like this:
+
+emp_id	name
+ 1    	Ravi
+ 2	    Nav
+ 5	   John
+ 8	   Sam
+
+Non-Clustered Index
+A Non-Clustered Index creates a separate structure that stores the indexed column and a pointer to the actual row.
+Example
+Actual table remains:
+emp_id	name
+5	     John
+2	     Nav
+8	     Sam
+1	     Ravi
+
+The non-clustered index looks like:
+name	Points to Row
+John	Row 1
+Nav	  Row 2
+Ravi	Row 4
+Sam	  Row 3
+The table isn't changed.
+
+Real-Life Example
+Think of the index page of a textbook.The book is not arranged by topics.
+Instead, the last pages contain:
+Arrays ........ 35
+Functions ..... 57
+
+Can a table have two clustered indexes?
+❌ No.Because data can be physically sorted in only one order.
+Can a table have multiple non-clustered indexes?✅ Yes.
+Name
+Salary
+Department
+Each can have its own index
+
+Which one is faster?
+Clustered Index is generally faster because the data is already stored in sorted order.
+Non-Clustered Index is still very fast but requires an extra step: SQL first finds the row in the index and then fetches the actual row.
+
+Think of a book:
+📖 Clustered Index = The chapters inside the book, already arranged in order.
+📑 Non-Clustered Index = The index page at the back of the book, which tells you where to find the topic.
+
 
 76. Query Execution Plan
 A query execution plan is a roadmap showing how the database executes a query
