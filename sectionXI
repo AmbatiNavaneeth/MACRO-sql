@@ -65,6 +65,9 @@ Information should depend only on the main identifier of the row.
 
 3NF - Must be in 2NF and remove transitive dependency
 
+Transitive Dependency: A non-key attribute depends on another non-key attribute.
+Partial Dependency: A non-key attribute depends on only a part of the primary key.
+
 
 103. Star Schema vs Snowflake Schema - Star schema is simpler and faster, while snowflake schema is more normalized
 
@@ -254,16 +257,37 @@ normalization is about arranging data in database to reduce redundancy and maint
 2nf-should follow 1nf and Every non-key column must depend on the whole primary key.
 3nf-it is in 2nf No non-key column depends on another non-key column.
 
-Example
+Example:-
+-- Before 3NF
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  Name VARCHAR(255),
+  Address VARCHAR(255),
+  Phone VARCHAR(20)
+);
+
+-- After 3NF
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  Name VARCHAR(255),
+  Phone VARCHAR(20)
+);
+
+CREATE TABLE Addresses (
+  AddressID INT PRIMARY KEY,
+  CustomerID INT,
+  Address VARCHAR(255),
+  FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+our example continuation:-
 emp_id	dept_id	department
 1	1	IT
-
 Here:
 department depends on dept_id, Not on emp_id.
 This is called a transitive dependency.
 
 so we can write as 
-
 emp_id	name	dept_id
 1	 nav	 101
 
@@ -271,7 +295,6 @@ dept_id   dept_name
 101         IT
 
 which follows 3nf
-
 our tables are already in that form
 
  select * from employees;
