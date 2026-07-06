@@ -490,42 +490,129 @@ WHERE department='IT';
 
 fetches only required required columns
 
+136. Database Monitoring
+Database monitoring is the process of continuously checking the health, performance, and availability of a database.
+It helps identify:
+Slow queries
+High CPU usage
+High memory usage
+Deadlocks
+Connection issues
+
+137. EXPLAIN ANALYZE
+EXPLAIN shows how SQL plans to execute a query.
+EXPLAIN ANALYZE executes the query and shows the actual execution plan and execution time.
+
+138. Handling Large Datasets
+Handling millions of records efficiently using database optimization techniques.
+Techniques:=
+Indexing
+Pagination
+Partitioning
+Query Optimization
+Proper Normalization
+Avoid SELECT *
+
+Real-Time Example
+Instagram doesn't load millions of posts at once. It loads a small number of posts initially and fetches more as you scroll.
+
+139. SQL in Microservices
+In a microservices architecture, each service usually has its own independent database, reducing dependencies and improving scalability
+Real-Time Example
+
+Amazon:
+User Service
+      │
+      ▼
+ User Database
+
+Order Service
+      │
+      ▼
+Order Database
+
+Payment Service
+      │
+      ▼
+Payment Database
 
 
+140. SQL vs ORM
+SQL (Structured Query Language) is the standard programming language used to manage, store, and manipulate data within a relational database.
+ORM (Object Relational Mapping) allows developers to interact with databases using programming language objects instead of writing SQL manually.
+
+> SELECT *
+  FROM employees
+
+> employee = session.query(Employee)
+
+           SQL	                         ORM
+Write SQL queries manually	     Uses programming language objects
+Faster for complex queries	      Easier for CRUD operations
+  More control	                  Less boilerplate code
+ Better performance	             Better developer productivity
 
 
+Real-Time Example
+Banking systems often use raw SQL for maximum performance.
+Django applications commonly use an ORM for faster development.
 
 
+141. MySQL vs PostgreSQL
+MySQL is an open-source relational database management system (RDBMS) optimized for high-speed web application performance.
+PostgreSQL is an open-source, enterprise-grade relational database management system (RDBMS)
+Both MySQL and PostgreSQL are popular Relational Database Management Systems (RDBMS), but they have different strengths.
+
+         MySQL	                                  PostgreSQL
+Faster for simple read-heavy applications 	Better for complex queries
+   Easy to learn	                               More advanced features
+Widely used in web applications	          Widely used in enterprise applications
+     Supports JSON                     	Better JSON support (JSONB)
+       Simpler	                               More feature-rich
 
 
+Real-Time Example
+MySQL: WordPress, E-commerce websites
+PostgreSQL: Banking systems, GIS applications, Enterprise ERP systems
 
 
+142. ACID vs BASE
+ACID guarantees reliable and consistent transactions.
+a-atomicity
+c-consistency
+i-isolation
+d-durability
+
+Example:
+Bank transaction.
+
+BASE prioritizes high availability and eventual consistency in transactions
+B → Basically Available
+A → Soft State
+S → Eventual Consistency
+
+Example:
+Social media likes.
+A like count may take a few seconds to update everywhere.
 
 
+143. CAP Theorem
+CAP Theorem states that a distributed database can guarantee only two out of three properties at the same time.
+consistency - Every user sees the same latest data.
+availability - Every request receives a response.
+partition tolerance - The system continues working even if communication between servers fails.
+
+The Setup: You are texting a friend on WhatsApp.
+The Partition (Network Break):- You step into an elevator and completely lose your internet connection.
+The Availability:- The app doesn’t freeze or crash. It stays open, lets you type a new message, and saves it locally on your phone with a clock icon 🕒.
+The Missing Piece (Consistency):-  Because you are disconnected, your friend cannot see your message yet. Your phone has the message, but the WhatsApp server does not.
+The Recovery:-  You step out of the elevator. Your phone reconnects, sends the queued message, and your friend finally sees it.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+144. Data Warehousing Concepts
+A Data Warehouse is a centralized repository used for storing historical data for reporting and analytics.
+Real-Time Example:-
+Amazon stores years of sales data in a data warehouse to analyze yearly trends
 
 
 
