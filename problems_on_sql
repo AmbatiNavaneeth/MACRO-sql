@@ -223,8 +223,30 @@ emp_id  name  dept_id  salary
   4    David   HR      65000
   5    Emma    IT      95000
 
+SELECT department_id, MAX(salary) AS highest_salary
+FROM employee
+GROUP BY department_id;
 
+18. Delete Duplicate Records - Delete duplicate rows while keeping one record.
 
+with d as
+(
+select *,row_number() over(partition by email_id) rn
+from students
+)
+delete from d
+where rn>1;
+
+19. Rank Employees Based on Salary
+select emp_name,
+       salary,
+       rank()-row_number()-dense_rank() over(partition by salary order by desc) as rn
+from employees;
+
+20. Top 3 Salaries in Each Department
+select * 
+from employees 
+group by department_name
 
 
 
