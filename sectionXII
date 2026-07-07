@@ -615,19 +615,60 @@ Real-Time Example:-
 Amazon stores years of sales data in a data warehouse to analyze yearly trends
 
 
+145. Slowly Changing Dimensions (SCD)
+are techniques used in data warehouses to manage changes in dimension data over time.
+Explain SCD Types.
+Type	Description
+Type 1	Overwrite old data
+Type 2	Keep history with new rows
+Type 3	Store current and previous values
+
+146. Fact vs Dimension Tables
+Fact Table - A Fact Table stores measurable business data (facts), such as sales, quantity, revenue, etc.
+Dimension Table - A Dimension Table stores descriptive information about the facts, such as customer, product, employee, or time.
+
+Fact Table (Sales)
+SaleID	ProductID   CustomerID  Quantity	Amount
+  1	  101	        201	     2	       50000
+  2	  102	        202	     1	       30000
+
+Product Dimension
+ProductID	ProductName	Category
+   101	        Laptop	Electronics
+  102	        Mobile	Electronics
+
+Customer Dimension
+CustomerID	CustomerName	City
+201	Ravi	Hyderabad
+202	John	Bangalore
 
 
+147. Query Anti-patterns
+Query anti-patterns are poor SQL practices that make queries slow, difficult to maintain, or inefficient.
+Common Anti-patterns
+1. Using SELECT *
+2. Missing WHERE Clause
+3. Too Many Nested Subqueries - use cte or join
+4. Missing Indexes
 
 
+148. Materialized View
+A Materialized View stores the query result physically in the database.
+Unlike a normal View, it stores actual data.
+
+149. SQL Best Practices
+SQL Best Practices are recommended techniques for writing efficient, secure, and maintainable SQL code.
+
+SQL best practices include:- 
+selecting only required columns,
+indexing frequently searched columns,
+using parameterized queries,
+writing readable SQL, and normalizing data.
 
 
-
-
-
-
-
-
-
+150. Real-World SQL Interview Scenarios
+finding duplicate 
+finding highest lowest 2nd highest 2nd lowest salaries etcc..
 
 
 
