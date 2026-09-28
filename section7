@@ -76,7 +76,7 @@ A subquery that depends on the outer query.
 It executes once for every row processed by the outer query
 
 ex:-Find employees earning above their department average.
-
+https://www.google.com/search?q=explain+this+ex%3A-Find+employees+earning+above+their+department+average.+SELECT+e1.name%2C+e1.salary+FROM+employees+e1+WHERE+salary+%3E+%28+SELECT+AVG%28e2.salary%29+FROM+employees+e2+WHERE+e1.department%3De2.department+%29%3B+For+each+employee%3A-+Calculate+department+average+Compare+employee+salary&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI4MTBqMGo3qAIIsAIB8QUaGfvy_Avs-w&sourceid=chrome&ie=UTF-8&zx=1790585731836&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cn05EoNqnRUpRtqDK_L3JtY5835jvPAHOwoHA-WZCnj-5yjm1LYMKMBufHsmIIhUzOK-9Med4royenYY8IBB9Xe8tUDIZN7ozXmRyxFBlEagksZMFPbk0Gylu_v3UBrRtEK2xKYb4eM5xJyBvcie9VLfeOQm9wcVNcpSSiUBGVaqfwLfaQEm_xdVb3FQ5OFZF8pCH_w&aep=10&ntc=1&sxsrf=APpeQntDnihuCJuEeEL5uiuksc6szvHxCw%3A1790585729332&mstk=AUtExfB4c5FYp4MbqWK5HqAtTEO6w2DfCoBhaDbvgK2K9H92tQVry8sbdLHgnVASunrucjR-71Fq2Js48U0VY_Aa-q71cuBR_XnLHS2rZ6shgkqhBvv1NHhdADZfJDUTBNlvZBJoYX70_QfcTvLjqvYRSq1RTipcnS4vuMcXxC6FF1zldmOlE0S8506E3-7pna38hsEtDdCUHhx3VrWHIWCfVcFIKxJpPxDbcenHn5JEsrt6Yl1Q1F9M9FWGge0UasmEyF6TzPyt9AqQzMQ5tygjx5QDKnVEDe2wT34bBnmxu6fRkQVhdiJUdUYKYTAjIbHU23HKvd46uVgRUw&aioh=3&csuir=1&cs=1&mtid=Cyy6avK5LpKs4-EP6cGGiAM&udm=50
 SELECT e1.name,
 e1.salary
 FROM employees e1
