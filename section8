@@ -31,6 +31,13 @@ Unique Index
 
 73. Clustered vs Non-Clustered Index
 Clustered Index
+A Clustered Index is when the table data itself is physically sorted in a specific order (like a Dictionary, where words are physically arranged from A to Z). 
+Because you can only sort the physical data one way, you can only have one per table.
+Non-Clustered Index
+A Non-Clustered Index is a separate list that points to where the data is stored (like a Textbook Index at the back of a book that tells you which page number to turn to). 
+Because it is a separate list, you can have many of them on one table.
+
+Clustered Index
 A clustered index determines the physical order of data in a table.
 Example:-
 Suppose you have this table:
