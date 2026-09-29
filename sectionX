@@ -145,6 +145,14 @@ Drop  procedure if exists procedure_name;
 A function returns a single value after performing calculations.
 
 96. Parameter in stored procedures
+Parameter 
+IN (Default)	Input	Passes a value into the procedure. The procedure can use it but cannot modify the original variable outside.	
+              Handing someone a read-only document to look at.
+OUT	Output	  Passes a value out of the procedure back to the caller. It starts as NULL inside the procedure.	
+              Handing someone an empty box for them to fill and return to you.
+INOUT       	Both Passes a value in, allows the procedure to modify it, and passes the updated value out.
+              Handing someone a completed form, letting them edit it, and handing it back.
+
 
 97. Triggers
 A Trigger is a special type of stored procedure that automatically executes (fires) when a specific event occurs on a table or view.
